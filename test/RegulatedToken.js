@@ -1,5 +1,6 @@
 const util = require('util');
 
+const Regulator = artifacts.require('Regulator.sol');
 const AllowRule = artifacts.require('AllowRegulationRule.sol');
 const DenyRule = artifacts.require('DenyRegulationRule.sol');
 const Kyc = artifacts.require('TestKycProvider.sol');
@@ -14,10 +15,11 @@ const randomInt = tests.randomInt;
 contract("RegulatedToken", accounts => {
   async function instantiate(Rule) {
     var investor = randomAddress();
+    var regulator = await Regulator.new();
     var rule = await Rule.new();
     var kyc = await Kyc.new(investor, 1, "0x0");
-    var token = await Token.new();
-    return {token: token, investor: investor, rule: rule, kyc: kyc};
+    var token = await Token.new(regulator.address);
+    return {token: token, investor: investor, rule: rule, kyc: kyc, regulator: regulator};
   }
 
   async function prepare(Rule) {
