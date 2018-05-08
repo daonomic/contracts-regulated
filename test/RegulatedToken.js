@@ -31,7 +31,7 @@ contract("RegulatedToken", accounts => {
     await init.token.mint(init.investor, 100);
   });
 
-  it("should not let mint if allowed by rule", async () => {
+  it("should not let mint if denied by rule", async () => {
     var init = await prepare(DenyRule);
     await expectThrow(
         init.token.mint(init.investor, 100)
