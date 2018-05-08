@@ -45,7 +45,7 @@ contract("RegulatedToken", accounts => {
     );
   });
 
-  it("should not let mint if no rule found", async () => {
+  it("should not let mint if rule not found by investor jurisdiction", async () => {
     var init = await instantiate(AllowRule);
     await init.token.setKycProviders([init.kyc.address]);
     await init.token.setRule(2, init.rule.address);
