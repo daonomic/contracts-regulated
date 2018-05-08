@@ -1,7 +1,9 @@
-var AllowRule = artifacts.require('AllowRegulationRule.sol');
-var DenyRule = artifacts.require('DenyRegulationRule.sol');
-var Kyc = artifacts.require('TestKycProvider.sol');
-var Token = artifacts.require('TestRegulatedToken.sol');
+const util = require('util');
+
+const AllowRule = artifacts.require('AllowRegulationRule.sol');
+const DenyRule = artifacts.require('DenyRegulationRule.sol');
+const Kyc = artifacts.require('TestKycProvider.sol');
+const Token = artifacts.require('TestRegulatedToken.sol');
 
 const tests = require("@daonomic/tests-common");
 const awaitEvent = tests.awaitEvent;
@@ -28,7 +30,8 @@ contract("RegulatedToken", accounts => {
 
   it("should let mint if allowed by rule", async () => {
     var init = await prepare(AllowRule);
-    await init.token.mint(init.investor, 100);
+    var tx = await init.token.mint(init.investor, 100);
+    console.log(tx.receipt.gasUsed);
   });
 
   it("should not let mint if denied by rule", async () => {
