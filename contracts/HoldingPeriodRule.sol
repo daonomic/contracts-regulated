@@ -1,4 +1,5 @@
 pragma solidity ^0.4.0;
+pragma experimental ABIEncoderV2;
 
 import "./RegulationRule.sol";
 
