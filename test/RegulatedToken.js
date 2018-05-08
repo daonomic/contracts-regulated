@@ -1,5 +1,3 @@
-const util = require('util');
-
 const AllowRule = artifacts.require('AllowRegulationRule.sol');
 const DenyRule = artifacts.require('DenyRegulationRule.sol');
 const Kyc = artifacts.require('TestKycProvider.sol');
@@ -31,7 +29,7 @@ contract("RegulatedToken", accounts => {
   it("should let mint if allowed by rule", async () => {
     var init = await prepare(AllowRule);
     var tx = await init.token.mint(init.investor, 100);
-    console.log(tx.receipt.gasUsed);
+//    console.log(tx.receipt.gasUsed);
   });
 
   it("should not let mint if denied by rule", async () => {
@@ -56,5 +54,6 @@ contract("RegulatedToken", accounts => {
         init.token.mint(init.investor, 100)
     );
   });
+
 
 });
