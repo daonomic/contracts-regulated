@@ -5,6 +5,6 @@ pragma solidity ^0.4.23;
  * @dev Enumerates known jurisdictions
  */
 contract Jurisdictions {
-    uint256 constant US = 1;
-    uint256 constant OTHER = 2**256 - 1;
+    uint128 constant US = 1;
+    uint128 constant OTHER = 2**128 - 1;
 }

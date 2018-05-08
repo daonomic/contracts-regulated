@@ -7,7 +7,7 @@
     "test": "truffle test"
   },
   "dependencies": {
-    "@daonomic/util": "~0.1",
+    "@daonomic/util": "0.1.6",
     "@daonomic/tokens": "~0.1",
     "@daonomic/interfaces": "~0.1"
   },
