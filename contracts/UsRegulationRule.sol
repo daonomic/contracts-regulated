@@ -7,17 +7,15 @@ import "./Jurisdictions.sol";
 contract UsRegulationRule is Jurisdictions, RegulationRule {
     byte public ACCREDITED_INVESTOR = 0x80;
 
-    function onMint(address _address, uint256 _amount, KycProvider.Investor _investor) {
-        require(_investor.jurisdiction == US);
-        require(_investor.data[0] & ACCREDITED_INVESTOR != 0, "investor is not accredited");
+    function checkMint(address _address, uint256 _amount, KycProvider.Investor _investor) public returns (bool) {
+        return _investor.jurisdiction == US && _investor.data[0] & ACCREDITED_INVESTOR != 0;
     }
 
-    function onTransferFrom(address _address, uint256 _amount, KycProvider.Investor _investor) {
-
+    function checkTransferFrom(address _address, uint256 _amount, KycProvider.Investor _investor) public returns (bool) {
+        return true;
     }
 
-    function onTransferTo(address _address, uint256 _amount, KycProvider.Investor _investor) {
-        require(_investor.jurisdiction == US);
-        require(_investor.data[0] & ACCREDITED_INVESTOR != 0, "investor is not accredited");
+    function checkTransferTo(address _address, uint256 _amount, KycProvider.Investor _investor) public returns (bool) {
+        return _investor.jurisdiction == US && _investor.data[0] & ACCREDITED_INVESTOR != 0;
     }
 }

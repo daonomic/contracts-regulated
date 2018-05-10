@@ -4,15 +4,15 @@ pragma experimental ABIEncoderV2;
 import "../../contracts/RegulationRule.sol";
 
 contract DenyRegulationRule is RegulationRule {
-    function onMint(address _address, uint256 _amount, Investor investor) public {
-        revert();
+    function checkMint(address _address, uint256 _amount, Investor investor) public returns (bool) {
+        return false;
     }
 
-    function onTransferFrom(address _address, uint256 _amount, Investor _investor) public {
-        revert();
+    function checkTransferFrom(address _address, uint256 _amount, Investor _investor) public returns (bool) {
+        return false;
     }
 
-    function onTransferTo(address _address, uint256 _amount, Investor _investor) public {
-        revert();
+    function checkTransferTo(address _address, uint256 _amount, Investor _investor) public returns (bool) {
+        return false;
     }
 }
