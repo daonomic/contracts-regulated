@@ -31,8 +31,15 @@ contract RegulatedTokenImpl is RegulatedToken, HasInvestor, MintableTokenImpl {
     }
 
     function ableToReceive(address _address, uint256 _amount) constant public returns (bool) {
-        var (investor, rule) = getInvestorAndRule(_address);
-        return rule.checkTransferTo(_address, _amount, investor);
+        Investor memory investor = getInvestor(_address);
+        if (investor.jurisdiction == 0) {
+            return false;
+        }
+        address ruleAddress = rules[investor.jurisdiction];
+        if (ruleAddress == address(0)) {
+            return false;
+        }
+        return RegulationRule(ruleAddress).checkTransferTo(_address, _amount, investor);
     }
 
     /**
