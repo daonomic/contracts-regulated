@@ -10,7 +10,7 @@ These checks must be carried out to comply with different laws regarding securit
 
 # KYC provider
 
-KYC provider is simple Oracle which has one function:
+KYC provider is Oracle which has one function:
 
 ```solidity
     /**
@@ -21,7 +21,7 @@ KYC provider is simple Oracle which has one function:
     function resolve(address _address) public returns (Investor);
 ```
 
-investor is simple structure:
+investor is declared as following:
 ```solidity
     struct Investor {
         uint128 jurisdiction;
