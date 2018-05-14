@@ -27,21 +27,21 @@ contract RegulationRule is HasInvestor {
     /**
      * @dev only for tests. web3 doesn't support tuple encoding
      */
-    function checkMint(address _address, uint256 _amount, uint128 _jurisdiction, bytes16 _data) public returns (bool) {
+    function checkMintTest(address _address, uint256 _amount, uint16 _jurisdiction, bytes30 _data) public returns (bool) {
         return checkMint(_address, _amount, Investor(_jurisdiction, _data));
     }
 
     /**
      * @dev only for tests. web3 doesn't support tuple encoding
      */
-    function checkTransferFrom(address _address, uint256 _amount, uint128 _jurisdiction, bytes16 _data) public returns (bool) {
+    function checkTransferFromTest(address _address, uint256 _amount, uint16 _jurisdiction, bytes30 _data) public returns (bool) {
         return checkTransferFrom(_address, _amount, Investor(_jurisdiction, _data));
     }
 
     /**
      * @dev only for tests. web3 doesn't support tuple encoding
      */
-    function checkTransferTo(address _address, uint256 _amount, uint128 _jurisdiction, bytes16 _data) public returns (bool) {
+    function checkTransferToTest(address _address, uint256 _amount, uint16 _jurisdiction, bytes30 _data) public returns (bool) {
         return checkTransferTo(_address, _amount, Investor(_jurisdiction, _data));
     }
 }

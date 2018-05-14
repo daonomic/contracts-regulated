@@ -24,8 +24,8 @@ KYC provider is Oracle which has one function:
 investor is declared as following:
 ```solidity
     struct Investor {
-        uint128 jurisdiction;
-        bytes16 data;
+        uint16 jurisdiction;
+        bytes30 data;
     }
 ```
 

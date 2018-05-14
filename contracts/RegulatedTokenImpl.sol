@@ -10,7 +10,7 @@ contract RegulatedTokenImpl is RegulatedToken, HasInvestor, MintableTokenImpl {
     /**
      * @dev Mapping from jurisdiction to RegulationRule address
      */
-    mapping(uint128 => address) public rules;
+    mapping(uint16 => address) public rules;
 
     /**
      * @dev Known investors
@@ -22,7 +22,7 @@ contract RegulatedTokenImpl is RegulatedToken, HasInvestor, MintableTokenImpl {
      */
     address[] public kycProviders;
 
-    function setRule(uint128 _jurisdiction, address _address) onlyOwner public {
+    function setRule(uint16 _jurisdiction, address _address) onlyOwner public {
         rules[_jurisdiction] = _address;
     }
 
