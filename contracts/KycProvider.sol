@@ -8,6 +8,8 @@ pragma experimental ABIEncoderV2;
  */
 contract KycProvider is HasInvestor {
 
+    event InvestorCheck(address addr);
+
     /**
      * @dev resolve investor address
      * @param _address Investor's Ethereum address
