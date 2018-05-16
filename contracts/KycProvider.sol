@@ -1,6 +1,7 @@
 pragma solidity ^0.4.23;
-import "./HasInvestor.sol";
 pragma experimental ABIEncoderV2;
+
+import "./HasInvestor.sol";
 
 /**
  * @title KYC provider

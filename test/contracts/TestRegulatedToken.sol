@@ -6,4 +6,7 @@ import "@daonomic/util/contracts/OwnableImpl.sol";
 import "../../contracts/RegulatedTokenImpl.sol";
 
 contract TestRegulatedToken is OwnableImpl, SecuredImpl, RegulatedTokenImpl {
+    constructor(RegulatorService _regulatorService) RegulatedTokenImpl (_regulatorService) public {
+
+    }
 }
