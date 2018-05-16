@@ -4,7 +4,12 @@ import "@daonomic/interfaces/contracts/MintableToken.sol";
 
 contract RegulatedToken is MintableToken {
     /**
-     * @dev Check if investor is able to receive token
+     * @dev Check if investor is able to receive tokens
      */
-    function ableToReceive(address _address, uint256 _amount) constant public returns (bool);
+    function canReceive(address _address, uint256 _amount) constant public returns (bool);
+
+    /**
+     * @dev Check if investor is able to send tokens
+     */
+    function canSend(address _address, uint256 _amount) constant public returns (bool);
 }
