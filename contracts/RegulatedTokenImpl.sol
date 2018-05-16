@@ -14,11 +14,11 @@ contract RegulatedTokenImpl is RegulatedToken, HasInvestor, MintableTokenImpl {
     }
 
     function canReceive(address _address, uint256 _amount) constant public returns (bool) {
-        return false;
+        return regulatorService.canReceive(_address, _amount);
     }
 
     function canSend(address _address, uint256 _amount) constant public returns (bool) {
-        return false;
+        return regulatorService.canSend(_address, _amount);
     }
 
     function mint(address _to, uint256 _amount) public returns (bool) {

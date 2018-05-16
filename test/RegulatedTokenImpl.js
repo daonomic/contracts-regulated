@@ -105,7 +105,7 @@ contract("RegulatedTokenImpl", accounts => {
   it("should check if investor is able to receive tokens", async () => {
     var init = await prepare(randomAddress(), AllowRule);
 
-    assert.equal(await init.token.ableToReceive(init.investor, 100), true);
-    assert.equal(await init.token.ableToReceive(randomAddress(), 100), false);
+    assert.equal(await init.token.canReceive(init.investor, 100), true);
+    assert.equal(await init.token.canReceive(randomAddress(), 100), false);
   });
 });

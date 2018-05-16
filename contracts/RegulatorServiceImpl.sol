@@ -2,6 +2,7 @@ pragma solidity ^0.4.23;
 pragma experimental ABIEncoderV2;
 
 import "@daonomic/util/contracts/Ownable.sol";
+import "./KycProvider.sol";
 import "./RegulatorService.sol";
 import "./HasInvestor.sol";
 import "./RegulationRule.sol";
@@ -37,7 +38,16 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
         if (investor.jurisdiction == 0) {
             return false;
         } else {
-            return rule.check(_address, _amount, investor);
+            return rule.canReceive(_address, _amount, investor);
+        }
+    }
+
+    function canSend(address _address, uint256 _amount) public returns (bool) {
+        var (investor, rule) = getInvestorAndRule(_address);
+        if (investor.jurisdiction == 0) {
+            return false;
+        } else {
+            return rule.canSend(_address, _amount, investor);
         }
     }
 
@@ -46,23 +56,23 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
         if (investor.jurisdiction == 0) {
             return false;
         } else {
-            return rule.checkMint(_to, _amount, investor);
+            return rule.canReceive(_to, _amount, investor);
         }
     }
 
-    function canTransfer(address _from, address _to, uint256 amount) public returns (bool) {
+    function canTransfer(address _from, address _to, uint256 _amount) public returns (bool) {
         var (from, ruleFrom) = getInvestorAndRule(_from);
         if (from.jurisdiction == 0) {
             return false;
         }
-        if (!ruleFrom.checkTransferFrom(_from, _value, from)) {
+        if (!ruleFrom.canSend(_from, _amount, from)) {
             return false;
         }
         var (to, ruleTo) = getInvestorAndRule(_to);
         if (to.jurisdiction == 0) {
             return false;
         }
-        return ruleTo.checkTransferTo(_to, _value, to);
+        return ruleTo.canReceive(_to, _amount, to);
     }
 
     function getInvestorAndRule(address _address) internal returns (Investor, RegulationRule) {
