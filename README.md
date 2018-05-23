@@ -3,7 +3,7 @@
 Regulated tokens essentially are ERC-20 tokens, but with additional checks for transfer/transferFrom functions.
 These checks must be carried out to comply with different laws regarding securities in different countries.
 
-# How does it work
+# How it works
 
 1. Investor identification is done using one or more KYC provider (https://github.com/daonomic/contracts-regulated/blob/master/contracts/KycProvider.sol)
 2. After that different jurisdiction regulation rules are applied. If all checks pass, then transfer is allowed
