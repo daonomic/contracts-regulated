@@ -1,8 +1,8 @@
 pragma solidity ^0.4.23;
 
-import "@daonomic/interfaces/contracts/MintableToken.sol";
+import "@daonomic/interfaces/contracts/Token.sol";
 
-contract RegulatedToken is MintableToken {
+contract RegulatedToken is Token {
     /**
      * @dev Check if investor is able to receive tokens
      */

@@ -1,4 +1,7 @@
 {
+  "name": "@daonomic/regulated",
+  "version": "0.1.0",
+  "description": "Security tokens",
   "main": "truffle.js",
   "directories": {
     "test": "test"
@@ -6,9 +9,21 @@
   "scripts": {
     "test": "truffle test"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daonomic/contracts-regulated.git"
+  },
+  "keywords": [
+    "ethereum"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daonomic/contracts-regulated/issues"
+  },
+  "homepage": "https://github.com/daonomic/contracts-regulated",
   "dependencies": {
     "@daonomic/util": "0.1.7",
-    "@daonomic/tokens": "0.1.10",
+    "@daonomic/tokens": "0.1.12",
     "@daonomic/interfaces": "~0.1"
   },
   "devDependencies": {
