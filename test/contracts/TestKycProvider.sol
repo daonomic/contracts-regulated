@@ -14,7 +14,7 @@ contract TestKycProvider is KycProvider {
         data = _data;
     }
 
-    function resolve(address _address) public returns (Investor) {
+    function resolve(address _address) constant public returns (Investor) {
         if (_address == investor) {
             return Investor(jurisdiction, data);
         } else {

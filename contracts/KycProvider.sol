@@ -16,5 +16,5 @@ contract KycProvider is HasInvestor {
      * @param _address Investor's Ethereum address
      * @return struct representing investor - its jurisdiction and some generic data
      */
-    function resolve(address _address) public returns (Investor);
+    function resolve(address _address) constant public returns (Investor);
 }

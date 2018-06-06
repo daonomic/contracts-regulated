@@ -35,4 +35,8 @@ contract RegulatedTokenImpl is RegulatedToken, HasInvestor, MintableTokenImpl {
         require(regulatorService.canTransfer(_from, _to, _value));
         super.transferFrom(_from, _to, _value);
     }
+
+    function setRegulatorService(RegulatorService _regulatorService) onlyOwner public {
+        regulatorService = _regulatorService;
+    }
 }
