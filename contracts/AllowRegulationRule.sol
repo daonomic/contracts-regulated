@@ -1,7 +1,7 @@
 pragma solidity ^0.4.23;
 pragma experimental ABIEncoderV2;
 
-import "../../contracts/RegulationRule.sol";
+import "./RegulationRule.sol";
 
 contract AllowRegulationRule is RegulationRule {
     function canReceive(address /*_address*/, uint256 /*_amount*/, Investor /*investor*/) constant public returns (bool) {
