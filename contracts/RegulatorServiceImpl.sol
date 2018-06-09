@@ -1,11 +1,11 @@
 pragma solidity ^0.4.23;
 pragma experimental ABIEncoderV2;
 
+import "@daonomic/interfaces/contracts/KycProvider.sol";
 import "@daonomic/util/contracts/Ownable.sol";
-import "./KycProvider.sol";
 import "./RegulatorService.sol";
-import "./HasInvestor.sol";
 import "./RegulationRule.sol";
+
 
 contract RegulatorServiceImpl is HasInvestor, RegulatorService {
     /**

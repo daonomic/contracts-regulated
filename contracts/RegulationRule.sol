@@ -1,7 +1,9 @@
 pragma solidity ^0.4.23;
 pragma experimental ABIEncoderV2;
 
-import "./HasInvestor.sol";
+
+import "@daonomic/interfaces/contracts/HasInvestor.sol";
+
 
 /**
  * @title Represents regulation rule (law)

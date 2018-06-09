@@ -1,9 +1,9 @@
 pragma solidity ^0.4.23;
 pragma experimental ABIEncoderV2;
 
+import "@daonomic/interfaces/contracts/KycProvider.sol";
 import "@daonomic/util/contracts/SecuredImpl.sol";
 import "@daonomic/util/contracts/OwnableImpl.sol";
-import "./KycProvider.sol";
 
 /**
  * @title KYC provider implementation

@@ -1,8 +1,8 @@
 pragma solidity ^0.4.23;
 
+import "@daonomic/interfaces/contracts/HasInvestor.sol";
 import "@daonomic/tokens/contracts/MintableTokenImpl.sol";
 import "./RegulationRule.sol";
-import "./KycProvider.sol";
 import "./RegulatedToken.sol";
 import "./RegulatorService.sol";
 
