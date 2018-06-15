@@ -23,6 +23,10 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
         rules[_token][_jurisdiction] = _address;
     }
 
+    function getKycProviders(address _token) public returns (address[]) {
+        return kycProviders[_token];
+    }
+
     function setKycProviders(address _token, address[] _kycProviders) public {
         Ownable(_token).checkOwner(msg.sender);
         kycProviders[_token] = _kycProviders;
