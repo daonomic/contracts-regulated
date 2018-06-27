@@ -8,6 +8,9 @@ import "./RegulationRule.sol";
 
 
 contract RegulatorServiceImpl is HasInvestor, RegulatorService {
+    event RuleSet(address indexed token, uint16 jurisdiction, address rule);
+    event KycProvidersSet(address indexed token, address[] providers);
+
     /**
      * @dev Mapping from jurisdiction to RegulationRule address
      */
@@ -21,6 +24,7 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
     function setRule(address _token, uint16 _jurisdiction, address _address) public {
         Ownable(_token).checkOwner(msg.sender);
         rules[_token][_jurisdiction] = _address;
+        emit RuleSet(_token, _jurisdiction, _address);
     }
 
     function getKycProviders(address _token) constant public returns (address[]) {
@@ -30,6 +34,7 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
     function setKycProviders(address _token, address[] _kycProviders) public {
         Ownable(_token).checkOwner(msg.sender);
         kycProviders[_token] = _kycProviders;
+        emit KycProvidersSet(_token, _kycProviders);
     }
 
     function canReceive(address _address, uint256 _amount) constant public returns (bool) {

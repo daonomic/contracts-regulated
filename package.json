@@ -1,6 +1,6 @@
 {
   "name": "@daonomic/regulated",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Security tokens",
   "main": "truffle.js",
   "directories": {
