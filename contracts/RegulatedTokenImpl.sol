@@ -2,12 +2,12 @@ pragma solidity ^0.4.23;
 
 import "@daonomic/interfaces/contracts/HasInvestor.sol";
 import "@daonomic/tokens/contracts/TokenImpl.sol";
-import "@daonomic/util/contracts/Secured.sol";
+import "@daonomic/util/contracts/Ownable.sol";
 import "./RegulationRule.sol";
 import "./RegulatedToken.sol";
 import "./RegulatorService.sol";
 
-contract RegulatedTokenImpl is Ownable, Secured, RegulatedToken, HasInvestor, TokenImpl {
+contract RegulatedTokenImpl is Ownable, RegulatedToken, HasInvestor, TokenImpl {
     RegulatorService public regulatorService;
 
     constructor(RegulatorService _regulatorService) public {
