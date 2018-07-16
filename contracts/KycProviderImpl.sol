@@ -1,9 +1,9 @@
 pragma solidity ^0.4.23;
 pragma experimental ABIEncoderV2;
 
+import "@daonomic/interfaces/contracts/KycProvider.sol";
 import "@daonomic/util/contracts/SecuredImpl.sol";
 import "@daonomic/util/contracts/OwnableImpl.sol";
-import "./KycProvider.sol";
 
 /**
  * @title KYC provider implementation
@@ -13,7 +13,7 @@ contract KycProviderImpl is OwnableImpl, SecuredImpl, KycProvider {
     mapping(address => Investor) data;
     event DataChange(address indexed addr, uint16 jurisdiction, bytes30 data);
 
-    function resolve(address _address) public returns (Investor) {
+    function resolve(address _address) constant public returns (Investor) {
         return data[_address];
     }
 

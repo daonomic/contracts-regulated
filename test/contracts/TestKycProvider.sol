@@ -1,7 +1,9 @@
 pragma solidity ^0.4.23;
 pragma experimental ABIEncoderV2;
 
-import "../../contracts/KycProvider.sol";
+
+import "@daonomic/interfaces/contracts/KycProvider.sol";
+
 
 contract TestKycProvider is KycProvider {
     address public investor;
@@ -14,7 +16,7 @@ contract TestKycProvider is KycProvider {
         data = _data;
     }
 
-    function resolve(address _address) public returns (Investor) {
+    function resolve(address _address) constant public returns (Investor) {
         if (_address == investor) {
             return Investor(jurisdiction, data);
         } else {
