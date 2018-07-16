@@ -1,13 +1,12 @@
 pragma solidity ^0.4.23;
 
 import "@daonomic/interfaces/contracts/HasInvestor.sol";
-import "@daonomic/tokens/contracts/TokenImpl.sol";
-import "@daonomic/util/contracts/Secured.sol";
+import "@daonomic/tokens/contracts/MintableTokenImpl.sol";
 import "./RegulationRule.sol";
 import "./RegulatedToken.sol";
 import "./RegulatorService.sol";
 
-contract RegulatedTokenImpl is Ownable, Secured, RegulatedToken, HasInvestor, TokenImpl {
+contract RegulatedMintableTokenImpl is RegulatedToken, HasInvestor, MintableTokenImpl {
     RegulatorService public regulatorService;
 
     constructor(RegulatorService _regulatorService) public {
@@ -20,6 +19,11 @@ contract RegulatedTokenImpl is Ownable, Secured, RegulatedToken, HasInvestor, To
 
     function canSend(address _address, uint256 _amount) constant public returns (bool) {
         return regulatorService.canSend(_address, _amount);
+    }
+
+    function mint(address _to, uint256 _amount) public returns (bool) {
+        require(regulatorService.canMint(_to, _amount));
+        return super.mint(_to, _amount);
     }
 
     function transfer(address _to, uint256 _value) public returns (bool) {
