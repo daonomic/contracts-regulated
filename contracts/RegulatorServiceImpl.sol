@@ -47,12 +47,7 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
     }
 
     function canSend(address _address, uint256 _amount) constant public returns (bool) {
-        (Investor memory investor, RegulationRule rule) = getInvestorAndRule(_address);
-        if (investor.jurisdiction == 0) {
-            return false;
-        } else {
-            return rule.canSend(_address, _amount, investor);
-        }
+        return true;
     }
 
     function canMint(address _to, uint256 _amount) constant public returns (bool) {
@@ -65,13 +60,6 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
     }
 
     function canTransfer(address _from, address _to, uint256 _amount) constant public returns (bool) {
-        (Investor memory from, RegulationRule ruleFrom) = getInvestorAndRule(_from);
-        if (from.jurisdiction == 0) {
-            return false;
-        }
-        if (!ruleFrom.canSend(_from, _amount, from)) {
-            return false;
-        }
         (Investor memory to, RegulationRule ruleTo) = getInvestorAndRule(_to);
         if (to.jurisdiction == 0) {
             return false;
