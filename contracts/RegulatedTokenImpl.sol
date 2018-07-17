@@ -10,6 +10,8 @@ import "./RegulatorService.sol";
 contract RegulatedTokenImpl is Ownable, RegulatedToken, HasInvestor, TokenImpl {
     RegulatorService public regulatorService;
 
+    event RegulatorServiceChanged(address regulatorService);
+
     constructor(RegulatorService _regulatorService) public {
         regulatorService = _regulatorService;
     }
@@ -34,5 +36,6 @@ contract RegulatedTokenImpl is Ownable, RegulatedToken, HasInvestor, TokenImpl {
 
     function setRegulatorService(RegulatorService _regulatorService) onlyOwner public {
         regulatorService = _regulatorService;
+        emit RegulatorServiceChanged(_regulatorService);
     }
 }
