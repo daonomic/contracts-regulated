@@ -14,7 +14,7 @@ contract WhitelistKycProvider is Jurisdictions, OwnableImpl, SecuredImpl, Whitel
 
   function resolve(address _address) constant public returns (Investor) {
     if (isInWhitelist(_address)) {
-      return Investor(ALLOWED, "");
+      return Investor(OTHER, "");
     } else {
       return Investor(0, "");
     }
