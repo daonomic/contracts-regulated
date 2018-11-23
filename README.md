@@ -5,7 +5,7 @@ These checks must be carried out to comply with different laws regarding securit
 
 # How it works
 
-1. Investor identification is done using one or more KYC provider (https://github.com/daonomic/contracts-regulated/blob/master/contracts/KycProvider.sol)
+1. Investor identification is done using one or more KYC provider (https://github.com/daonomic/contracts-regulated/blob/master/contracts/KycProviderImpl.sol)
 2. After that different jurisdiction regulation rules are applied. If all checks pass, then transfer is allowed
 
 ![contracts](https://raw.githubusercontent.com/0v1se/draw/master/restricted.png)
