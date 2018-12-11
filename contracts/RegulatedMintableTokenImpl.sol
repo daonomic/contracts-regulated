@@ -28,12 +28,12 @@ contract RegulatedMintableTokenImpl is RegulatedToken, HasInvestor, MintableToke
 
     function transfer(address _to, uint256 _value) public returns (bool) {
         require(regulatorService.canTransfer(msg.sender, _to, _value));
-        super.transfer(_to, _value);
+        return super.transfer(_to, _value);
     }
 
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool) {
         require(regulatorService.canTransfer(_from, _to, _value));
-        super.transferFrom(_from, _to, _value);
+        return super.transferFrom(_from, _to, _value);
     }
 
     function setRegulatorService(RegulatorService _regulatorService) onlyOwner public {
