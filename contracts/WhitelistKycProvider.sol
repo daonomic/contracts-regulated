@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
 
@@ -12,7 +12,7 @@ import "./Jurisdictions.sol";
 contract WhitelistKycProvider is Jurisdictions, OwnableImpl, SecuredImpl, Whitelist, KycProvider {
   mapping(address => bool) whitelist;
 
-  function resolve(address _address) constant public returns (Investor) {
+  function resolve(address _address) view public returns (Investor memory) {
     if (isInWhitelist(_address)) {
       return Investor(OTHER, "");
     } else {
@@ -20,17 +20,17 @@ contract WhitelistKycProvider is Jurisdictions, OwnableImpl, SecuredImpl, Whitel
     }
   }
 
-  function isInWhitelist(address addr) constant public returns (bool) {
+  function isInWhitelist(address addr) view public returns (bool) {
     return whitelist[addr];
   }
 
-  function addToWhitelist(address[] _addresses) ownerOr("operator") public {
+  function addToWhitelist(address[] memory _addresses) ownerOr("operator") public {
     for (uint i = 0; i < _addresses.length; i++) {
       setWhitelistInternal(_addresses[i], true);
     }
   }
 
-  function removeFromWhitelist(address[] _addresses) ownerOr("operator") public {
+  function removeFromWhitelist(address[] memory _addresses) ownerOr("operator") public {
     for (uint i = 0; i < _addresses.length; i++) {
       setWhitelistInternal(_addresses[i], false);
     }

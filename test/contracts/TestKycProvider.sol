@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
 
@@ -16,7 +16,7 @@ contract TestKycProvider is KycProvider {
         data = _data;
     }
 
-    function resolve(address _address) constant public returns (Investor) {
+    function resolve(address _address) view public returns (Investor memory) {
         if (_address == investor) {
             return Investor(jurisdiction, data);
         } else {

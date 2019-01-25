@@ -28,7 +28,7 @@ contract("RegulatorServiceImpl", accounts => {
 		await testing.setRule(token.address, 2 ^ 16 - 2, allow.address);
 
 		var address = randomAddress();
-		await kyc.setData(address, 2 ^ 16 - 2, "");
+		await kyc.setData(address, 2 ^ 16 - 2, "0x");
 		assert.equal(await testing.canMint(address, 1, {from: token.address}), true);
 		assert.equal(await testing.canMint(address, 1, {from: randomAddress()}), false);
 		assert.equal(await testing.canMint(randomAddress(), 1, {from: token.address}), false);

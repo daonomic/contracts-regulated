@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.5.0;
 
 import "@daonomic/interfaces/contracts/HasInvestor.sol";
 import "@daonomic/tokens/contracts/TokenImpl.sol";
@@ -16,11 +16,11 @@ contract RegulatedTokenImpl is Ownable, RegulatedToken, HasInvestor, TokenImpl {
         regulatorService = _regulatorService;
     }
 
-    function canReceive(address _address, uint256 _amount) constant public returns (bool) {
+    function canReceive(address _address, uint256 _amount) view public returns (bool) {
         return regulatorService.canReceive(_address, _amount);
     }
 
-    function canSend(address _address, uint256 _amount) constant public returns (bool) {
+    function canSend(address _address, uint256 _amount) view public returns (bool) {
         return regulatorService.canSend(_address, _amount);
     }
 
@@ -36,6 +36,6 @@ contract RegulatedTokenImpl is Ownable, RegulatedToken, HasInvestor, TokenImpl {
 
     function setRegulatorService(RegulatorService _regulatorService) onlyOwner public {
         regulatorService = _regulatorService;
-        emit RegulatorServiceChanged(_regulatorService);
+        emit RegulatorServiceChanged(address(_regulatorService));
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@daonomic/regulated",
-  "version": "0.1.14",
+  "version": "0.2.0",
   "description": "Security tokens",
   "main": "truffle.js",
   "directories": {
@@ -22,12 +22,12 @@
   },
   "homepage": "https://github.com/daonomic/contracts-regulated",
   "dependencies": {
-    "@daonomic/interfaces": "0.1.9",
-    "@daonomic/tokens": "~0.1",
-    "@daonomic/util": "~0.1"
+    "@daonomic/interfaces": "^0.2.0",
+    "@daonomic/tokens": "^0.2.0",
+    "@daonomic/util": "^0.2.0"
   },
   "devDependencies": {
-    "@daonomic/sale": "~0.1",
-    "@daonomic/tests-common": "~0.1"
+    "@daonomic/sale": "^0.2.0",
+    "@daonomic/tests-common": "^0.2.0"
   }
 }

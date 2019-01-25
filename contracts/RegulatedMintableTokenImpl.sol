@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.5.0;
 
 import "@daonomic/interfaces/contracts/HasInvestor.sol";
 import "@daonomic/tokens/contracts/MintableTokenImpl.sol";
@@ -13,11 +13,11 @@ contract RegulatedMintableTokenImpl is RegulatedToken, HasInvestor, MintableToke
         regulatorService = _regulatorService;
     }
 
-    function canReceive(address _address, uint256 _amount) constant public returns (bool) {
+    function canReceive(address _address, uint256 _amount) view public returns (bool) {
         return regulatorService.canReceive(_address, _amount);
     }
 
-    function canSend(address _address, uint256 _amount) constant public returns (bool) {
+    function canSend(address _address, uint256 _amount) view public returns (bool) {
         return regulatorService.canSend(_address, _amount);
     }
 

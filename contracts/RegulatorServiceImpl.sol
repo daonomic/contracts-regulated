@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
 import "@daonomic/interfaces/contracts/KycProvider.sol";
@@ -27,17 +27,17 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
         emit RuleSet(_token, _jurisdiction, _address);
     }
 
-    function getKycProviders(address _token) constant public returns (address[]) {
+    function getKycProviders(address _token) view public returns (address[] memory) {
         return kycProviders[_token];
     }
 
-    function setKycProviders(address _token, address[] _kycProviders) public {
+    function setKycProviders(address _token, address[] memory _kycProviders) public {
         Ownable(_token).checkOwner(msg.sender);
         kycProviders[_token] = _kycProviders;
         emit KycProvidersSet(_token, _kycProviders);
     }
 
-    function canReceive(address _address, uint256 _amount) constant public returns (bool) {
+    function canReceive(address _address, uint256 _amount) view public returns (bool) {
         (Investor memory investor, RegulationRule rule) = getInvestorAndRule(_address);
         if (investor.jurisdiction == 0) {
             return false;
@@ -46,11 +46,11 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
         }
     }
 
-    function canSend(address _address, uint256 _amount) constant public returns (bool) {
+    function canSend(address /*_address*/, uint256 /*_amount*/) view public returns (bool) {
         return true;
     }
 
-    function canMint(address _to, uint256 _amount) constant public returns (bool) {
+    function canMint(address _to, uint256 _amount) view public returns (bool) {
         (Investor memory investor, RegulationRule rule) = getInvestorAndRule(_to);
         if (investor.jurisdiction == 0) {
             return false;
@@ -59,7 +59,7 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
         }
     }
 
-    function canTransfer(address _from, address _to, uint256 _amount) constant public returns (bool) {
+    function canTransfer(address /*_from*/, address _to, uint256 _amount) view public returns (bool) {
         (Investor memory to, RegulationRule ruleTo) = getInvestorAndRule(_to);
         if (to.jurisdiction == 0) {
             return false;
@@ -67,7 +67,7 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
         return ruleTo.canReceive(_to, _amount, to);
     }
 
-    function getInvestorAndRule(address _address) constant internal returns (Investor, RegulationRule) {
+    function getInvestorAndRule(address _address) view internal returns (Investor memory, RegulationRule) {
         Investor memory investor = getInvestor(_address);
         address ruleAddress = rules[msg.sender][investor.jurisdiction];
         return (investor, RegulationRule(ruleAddress));
@@ -77,7 +77,7 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
      * @dev Get investor from mapping or find from KYC providers
      * @dev saves investor in investors mapping if found
      */
-    function getInvestor(address _address) constant internal returns (Investor) {
+    function getInvestor(address _address) view internal returns (Investor memory) {
         address[] memory tokenKycProviders = kycProviders[msg.sender];
         for (uint256 i = 0; i < tokenKycProviders.length; i++) {
             Investor memory investor = KycProvider(tokenKycProviders[i]).resolve(_address);
