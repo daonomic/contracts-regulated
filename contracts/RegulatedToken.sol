@@ -1,8 +1,8 @@
 pragma solidity ^0.5.0;
 
-import "@daonomic/interfaces/contracts/Token.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 
-contract RegulatedToken is Token {
+contract RegulatedToken is IERC20 {
     /**
      * @dev Check if investor is able to receive tokens
      */

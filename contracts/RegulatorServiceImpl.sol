@@ -1,15 +1,16 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
-import "@daonomic/interfaces/contracts/KycProvider.sol";
-import "@daonomic/util/contracts/Ownable.sol";
+
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "./InvestorDataProvider.sol";
 import "./RegulatorService.sol";
 import "./RegulationRule.sol";
 
 
 contract RegulatorServiceImpl is HasInvestor, RegulatorService {
     event RuleSet(address indexed token, uint16 jurisdiction, address rule);
-    event KycProvidersSet(address indexed token, address[] providers);
+    event InvestorDataProvidersSet(address indexed token, address[] providers);
 
     /**
      * @dev Mapping from jurisdiction to RegulationRule address
@@ -19,22 +20,22 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
     /**
      * @dev Trusted KYC providers
      */
-    mapping(address => address[]) public kycProviders;
+    mapping(address => address[]) public investorDataProviders;
 
     function setRule(address _token, uint16 _jurisdiction, address _address) public {
-        Ownable(_token).checkOwner(msg.sender);
+        require(Ownable(_token).owner() == msg.sender, "not owner of the token");
         rules[_token][_jurisdiction] = _address;
         emit RuleSet(_token, _jurisdiction, _address);
     }
 
-    function getKycProviders(address _token) view public returns (address[] memory) {
-        return kycProviders[_token];
+    function getInvestorDataProviders(address _token) view public returns (address[] memory) {
+        return investorDataProviders[_token];
     }
 
-    function setKycProviders(address _token, address[] memory _kycProviders) public {
-        Ownable(_token).checkOwner(msg.sender);
-        kycProviders[_token] = _kycProviders;
-        emit KycProvidersSet(_token, _kycProviders);
+    function setInvestorDataProviders(address _token, address[] memory _investorDataProviders) public {
+        require(Ownable(_token).owner() == msg.sender, "not owner of the token");
+        investorDataProviders[_token] = _investorDataProviders;
+        emit InvestorDataProvidersSet(_token, _investorDataProviders);
     }
 
     function canReceive(address _address, uint256 _amount) view public returns (bool) {
@@ -78,9 +79,9 @@ contract RegulatorServiceImpl is HasInvestor, RegulatorService {
      * @dev saves investor in investors mapping if found
      */
     function getInvestor(address _address) view internal returns (Investor memory) {
-        address[] memory tokenKycProviders = kycProviders[msg.sender];
-        for (uint256 i = 0; i < tokenKycProviders.length; i++) {
-            Investor memory investor = KycProvider(tokenKycProviders[i]).resolve(_address);
+        address[] memory tokenInvestorDataProviders = investorDataProviders[msg.sender];
+        for (uint256 i = 0; i < tokenInvestorDataProviders.length; i++) {
+            Investor memory investor = InvestorDataProvider(tokenInvestorDataProviders[i]).resolve(_address);
             if (investor.jurisdiction != 0) {
                 return investor;
             }

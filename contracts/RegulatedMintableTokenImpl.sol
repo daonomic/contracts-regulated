@@ -1,12 +1,14 @@
 pragma solidity ^0.5.0;
 
-import "@daonomic/interfaces/contracts/HasInvestor.sol";
-import "@daonomic/tokens/contracts/MintableTokenImpl.sol";
+
+import "openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol";
 import "./RegulationRule.sol";
 import "./RegulatedToken.sol";
 import "./RegulatorService.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
-contract RegulatedMintableTokenImpl is RegulatedToken, HasInvestor, MintableTokenImpl {
+
+contract RegulatedMintableTokenImpl is Ownable, RegulatedToken, HasInvestor, ERC20Mintable {
     RegulatorService public regulatorService;
 
     constructor(RegulatorService _regulatorService) public {

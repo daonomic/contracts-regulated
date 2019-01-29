@@ -2,10 +2,10 @@ pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
 
-import "@daonomic/interfaces/contracts/KycProvider.sol";
+import "../../contracts/InvestorDataProvider.sol";
 
 
-contract TestKycProvider is KycProvider {
+contract TestInvestorDataProvider is InvestorDataProvider {
     address public investor;
     uint16 public jurisdiction;
     bytes30 public data;

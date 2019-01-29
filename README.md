@@ -5,14 +5,14 @@ These checks must be carried out to comply with different laws regarding securit
 
 # How it works
 
-1. Investor identification is done using one or more KYC provider (https://github.com/daonomic/contracts-regulated/blob/master/contracts/KycProviderImpl.sol)
+1. Investor identification is done using one or more Investor Data provider (https://github.com/daonomic/contracts-regulated/blob/master/contracts/InvestorDataProvider.sol)
 2. After that different jurisdiction regulation rules are applied. If all checks pass, then transfer is allowed
 
 ![contracts](https://raw.githubusercontent.com/0v1se/draw/master/restricted.png)
 
-# KYC provider
+# Investor Data provider
 
-KYC provider is Oracle which has one function:
+Investor Data provider is Oracle which has one function:
 
 ```solidity
     /**

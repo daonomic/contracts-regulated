@@ -2,12 +2,11 @@ pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
 
-import "@daonomic/util/contracts/SecuredImpl.sol";
-import "@daonomic/util/contracts/OwnableImpl.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "../../contracts/RegulatedMintableTokenImpl.sol";
 
 
-contract TestRegulatedToken is OwnableImpl, SecuredImpl, RegulatedMintableTokenImpl {
+contract TestRegulatedToken is Ownable, RegulatedMintableTokenImpl {
     constructor(RegulatorService _regulatorService) RegulatedMintableTokenImpl (_regulatorService) public {
 
     }

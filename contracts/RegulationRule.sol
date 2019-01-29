@@ -1,8 +1,7 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
-
-import "@daonomic/interfaces/contracts/HasInvestor.sol";
+import "./HasInvestor.sol";
 
 
 /**

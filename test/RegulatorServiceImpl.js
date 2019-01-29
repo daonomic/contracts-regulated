@@ -1,7 +1,7 @@
 const AllowRule = artifacts.require('AllowRegulationRule.sol');
 const DenyRule = artifacts.require('DenyRegulationRule.sol');
 const RegulatorServiceImpl = artifacts.require('RegulatorServiceImpl.sol');
-const KycProviderImpl = artifacts.require('KycProviderImpl.sol');
+const InvestorDataProviderImpl = artifacts.require('InvestorDataProviderImpl.sol');
 const Token = artifacts.require('TestRegulatedToken.sol');
 
 const tests = require("@daonomic/tests-common");
@@ -20,11 +20,11 @@ contract("RegulatorServiceImpl", accounts => {
 		testing = await RegulatorServiceImpl.new();
 		token = await Token.new(testing.address);
 		allow = await AllowRule.new();
-		kyc = await KycProviderImpl.new();
+		kyc = await InvestorDataProviderImpl.new();
 	});
 
 	it("should return true if allowed by Rule", async () => {
-		await testing.setKycProviders(token.address, [kyc.address]);
+		await testing.setInvestorDataProviders(token.address, [kyc.address]);
 		await testing.setRule(token.address, 2 ^ 16 - 2, allow.address);
 
 		var address = randomAddress();

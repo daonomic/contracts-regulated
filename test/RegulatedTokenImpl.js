@@ -1,6 +1,6 @@
 const AllowRule = artifacts.require('AllowRegulationRule.sol');
 const DenyRule = artifacts.require('DenyRegulationRule.sol');
-const Kyc = artifacts.require('TestKycProvider.sol');
+const Kyc = artifacts.require('TestInvestorDataProvider.sol');
 const Token = artifacts.require('TestRegulatedToken.sol');
 const RegulatorServiceImpl = artifacts.require('RegulatorServiceImpl.sol');
 
@@ -22,7 +22,7 @@ contract("RegulatedTokenImpl", accounts => {
   async function prepare(investor, Rule) {
     var init = await instantiate(investor, Rule);
 
-    await init.regulator.setKycProviders(init.token.address, [init.kyc.address]);
+    await init.regulator.setInvestorDataProviders(init.token.address, [init.kyc.address]);
     await init.regulator.setRule(init.token.address, 1, init.rule.address);
     return init;
   }
@@ -49,7 +49,7 @@ contract("RegulatedTokenImpl", accounts => {
 
   it("should not let mint if rule not found by investor jurisdiction", async () => {
     var init = await instantiate(randomAddress(), AllowRule);
-    await init.regulator.setKycProviders(init.token.address, [init.kyc.address]);
+    await init.regulator.setInvestorDataProviders(init.token.address, [init.kyc.address]);
     await init.regulator.setRule(init.token.address, 2, init.rule.address);
     await expectThrow(
         init.token.mint(init.investor, 100)
@@ -59,7 +59,7 @@ contract("RegulatedTokenImpl", accounts => {
   it("should let transfer from one investor to another", async () => {
     var init = await prepare(accounts[1], AllowRule);
     var kyc = await Kyc.new(accounts[2], 1, "0x0");
-    await init.regulator.setKycProviders(init.token.address, [init.kyc.address, kyc.address]);
+    await init.regulator.setInvestorDataProviders(init.token.address, [init.kyc.address, kyc.address]);
 
     await init.token.mint(init.investor, 100);
     await init.token.transfer(accounts[2], 10, {from: accounts[1]});
@@ -81,7 +81,7 @@ contract("RegulatedTokenImpl", accounts => {
   it("should let transferFrom from one investor to another", async () => {
     var init = await prepare(accounts[1], AllowRule);
     var kyc = await Kyc.new(accounts[2], 1, "0x0");
-    await init.regulator.setKycProviders(init.token.address, [init.kyc.address, kyc.address]);
+    await init.regulator.setInvestorDataProviders(init.token.address, [init.kyc.address, kyc.address]);
 
     await init.token.mint(init.investor, 100);
     await init.token.approve(accounts[0], 10, {from: accounts[1]});
